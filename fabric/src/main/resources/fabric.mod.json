@@ -1,27 +1,27 @@
 {
   "schemaVersion": 1,
-  "id": "examplemod",
+  "id": "redderstone",
   "version": "${version}",
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "Redderstone",
+  "description": "Like Redstone but more",
   "authors": [
-    "Me!"
+    "SSBlur"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "https://ssblur.com/mods/redderstone.html",
+    "sources": "https://github.com/ssblur/redderstone"
   },
-  "license": "Insert License Here",
-  "icon": "assets/examplemod/icon.png",
+  "license": "Apache License 2.0",
+  "icon": "assets/redderstone/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.examplemod.fabric.ExampleModFabric"
+      "com.ssblur.redderstone.fabric.RedderstoneModFabric"
     ]
   },
   "mixins": [
-    "examplemod.mixins.json",
-    "examplemod-common.mixins.json"
+    "redderstone.mixins.json",
+    "redderstone-common.mixins.json"
   ],
   "depends": {
     "fabric": "*",

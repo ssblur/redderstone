@@ -1,15 +1,15 @@
 modLoader = "javafml"
 loaderVersion = "[43,)"
 #issueTrackerURL = ""
-license = "Insert License Here"
+license = "Apache License 2.0"
 
 [[mods]]
-modId = "examplemod"
+modId = "redderstone"
 version = "${version}"
-displayName = "Example Mod"
-authors = "Me!"
+displayName = "Redderstone"
+authors = "SSBlur"
 description = '''
-This is an example description! Tell everyone what your mod is about!
+Like Redstone, but more
 '''
 #logoFile = ""
 
