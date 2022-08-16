@@ -1,0 +1,23 @@
+{
+  "multipart": [
+    {
+      "apply": { "model": "redderstone:block/redderstone_wire" }
+    },
+    {
+      "when": { "east": "true" },
+      "apply": { "model": "redderstone:block/redderstone_wire_east" }
+    },
+    {
+      "when": { "west": "true" },
+      "apply": { "model": "redderstone:block/redderstone_wire_west" }
+    },
+    {
+      "when": { "north": "true" },
+      "apply": { "model": "redderstone:block/redderstone_wire_north" }
+    },
+    {
+      "when": { "south": "true" },
+      "apply": { "model": "redderstone:block/redderstone_wire_south" }
+    }
+  ]
+}

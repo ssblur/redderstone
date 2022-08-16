@@ -1,6 +1,7 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "redderstone:item/vermilion_dust"
+    "layer0": "redderstone:item/vermilion_dust",
+    "layer1": "redderstone:item/light"
   }
 }

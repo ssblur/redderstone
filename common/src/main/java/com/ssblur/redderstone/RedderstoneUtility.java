@@ -1,33 +1,85 @@
 package com.ssblur.redderstone;
 
+import com.ssblur.redderstone.block.RedderstoneConductor;
+import com.ssblur.redderstone.block.RedderstoneEmitter;
+import com.ssblur.redderstone.block.RedderstoneReceiver;
 import com.ssblur.redderstone.block.RedderstoneWireBlock;
+import com.ssblur.redderstone.layer.RedderstoneLayer;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RedstoneTorchBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.RedstoneSide;
+
+import java.util.ArrayList;
 
 public class RedderstoneUtility {
-  public static void setRedstoneLevel(Level level, BlockPos pos, int redstoneLevel) {
-    Block block = level.getBlockState(pos).getBlock();
-    if(block == Blocks.REDSTONE_WIRE || block instanceof RedderstoneWireBlock) {
-      if(redstoneLevel <= 15)
-        level.setBlock(pos, Blocks.REDSTONE_WIRE.defaultBlockState(), 0);
-      else {
-        level.setBlock(
-          pos,
-          RedderstoneMod
-            .REDDERSTONE_WIRE
-            .get()
-            .defaultBlockState()
-            .setValue(
-              RedderstoneWireBlock.LEVEL,
-              redstoneLevel % 16
-            ),
-          0
-        );
+  public record PosDirection(BlockPos pos, Direction direction){};
+  public static PosDirection[] surrounding(BlockPos pos) {
+    return new PosDirection[] {
+      new PosDirection(pos.above(), Direction.DOWN),
+      new PosDirection(pos.above().east(), Direction.DOWN),
+      new PosDirection(pos.above().west(), Direction.DOWN),
+      new PosDirection(pos.above().north(), Direction.DOWN),
+      new PosDirection(pos.above().south(), Direction.DOWN),
+      new PosDirection(pos.below(), Direction.UP),
+      new PosDirection(pos.below().east(), Direction.UP),
+      new PosDirection(pos.below().west(), Direction.UP),
+      new PosDirection(pos.below().north(), Direction.UP),
+      new PosDirection(pos.below().south(), Direction.UP),
+      new PosDirection(pos.east(), Direction.WEST),
+      new PosDirection(pos.west(), Direction.EAST),
+      new PosDirection(pos.north(), Direction.SOUTH),
+      new PosDirection(pos.south(), Direction.NORTH)
+    };
+  }
+
+  public static void setRedstoneLevel(Level level, BlockPos pos, int signal) {
+    setRedstoneLevel(level, pos, signal, new ArrayList<>());
+  }
+
+  public static void setRedstoneLevel(Level level, BlockPos pos, int signal, ArrayList<BlockPos> traversal) {
+    RedderstoneLayer.getMap(level).setSignal(pos, signal);
+
+    if(signal > 0)
+      for(var p: surrounding(pos)) {
+        if(traversal.contains(p.pos)) continue;
+        traversal.add(p.pos);
+
+        var state = level.getBlockState(p.pos);
+        var block = state.getBlock();
+
+        if(block instanceof RedderstoneConductor || block == Blocks.REDSTONE_WIRE)
+          if(signal - 1 != RedderstoneLayer.getMap(level).getMemory(p.pos))
+            setRedstoneLevel(level, p.pos, signal - 1, traversal);
       }
+  }
+
+  public static void clearRedstoneLevel(Level level, BlockPos pos) {
+    clearRedstoneLevel(level, pos, new ArrayList<>());
+  }
+
+  public static void clearRedstoneLevel(Level level, BlockPos pos, ArrayList<BlockPos> traversal) {
+    RedderstoneLayer.getMap(level).clearSignal(pos);
+
+    for(var p: surrounding(pos)) {
+      if(traversal.contains(p.pos)) continue;
+      traversal.add(p.pos);
+
+      if(RedderstoneLayer.getMap(level).getSignal(p.pos) > 0)
+        clearRedstoneLevel(level, p.pos, traversal);
     }
   }
+
+  public static int getRedstoneLevel(Level level, BlockPos pos, Direction dir) {
+    return Math.max(
+      RedderstoneLayer.getMap(level).getSignal(pos),
+      level.getBlockState(pos).getSignal(level, pos, dir)
+    );
+  }
+
+
 }

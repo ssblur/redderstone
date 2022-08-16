@@ -11,5 +11,6 @@ public class RedderstoneModForge {
         // Submit our event bus to let architectury register our content on the right time
         EventBuses.registerModEventBus(RedderstoneMod.MOD_ID, FMLJavaModLoadingContext.get().getModEventBus());
         RedderstoneMod.init();
+
     }
 }

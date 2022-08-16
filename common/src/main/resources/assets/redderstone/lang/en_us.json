@@ -2,5 +2,6 @@
   "itemGroup.redderstone.redderstone_tab": "Redderstone",
 
   "item.redderstone.vermilion_dust": "Vermilion Dust",
-  "block.redderstone.redderstone_wire": "Redderstone Wire"
+  "block.redderstone.redderstone_wire": "Redderstone Wire",
+  "block.redderstone.redderstone_wire_1": "Even Redderstone Wire"
 }
