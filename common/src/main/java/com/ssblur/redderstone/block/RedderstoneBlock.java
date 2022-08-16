@@ -47,9 +47,4 @@ public class RedderstoneBlock extends RedderstoneEmitter implements EntityBlock,
   public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state, BlockEntityType<T> type) {
     return RedderstoneBlockTile::tick;
   }
-
-  public void onRemove(BlockState state, Level level, BlockPos pos, BlockState toState, boolean bl) {
-    super.onRemove(state, level, pos, toState, bl);
-    RedderstoneUtility.clearRedstoneLevel(level, pos);
-  }
 }

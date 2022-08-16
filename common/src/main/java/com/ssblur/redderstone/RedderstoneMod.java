@@ -3,10 +3,12 @@ package com.ssblur.redderstone;
 import com.google.common.base.Suppliers;
 import com.ssblur.redderstone.block.RedderstoneBlock;
 import com.ssblur.redderstone.block.RedderstoneWireBlock;
+import com.ssblur.redderstone.events.RedderstoneBlockEvent;
 import com.ssblur.redderstone.events.RedderstoneTickEvent;
 import com.ssblur.redderstone.item.CraftingComponentItem;
 import com.ssblur.redderstone.tile.RedderstoneBlockTile;
 import com.ssblur.redderstone.tile.RedderstoneTile;
+import dev.architectury.event.events.common.BlockEvent;
 import dev.architectury.event.events.common.TickEvent;
 import dev.architectury.registry.CreativeTabRegistry;
 import dev.architectury.registry.client.rendering.RenderTypeRegistry;
@@ -24,6 +26,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 
 import java.util.function.Supplier;
 
@@ -67,6 +70,10 @@ public class RedderstoneMod {
     BLOCK_ENTITY_TYPES.register();
 
     TickEvent.ServerLevelTick.SERVER_LEVEL_POST.register(new RedderstoneTickEvent());
+
+    var blockEvents = new RedderstoneBlockEvent();
+    BlockEvent.BREAK.register(blockEvents);
+    BlockEvent.PLACE.register(blockEvents);
 
     try {
       registerRenderTypes();

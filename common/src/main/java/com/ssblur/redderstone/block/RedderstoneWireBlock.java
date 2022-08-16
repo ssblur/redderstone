@@ -48,13 +48,44 @@ public class RedderstoneWireBlock extends RedderstoneEmitter implements Redderst
   public boolean connectsTo(Level level, BlockPos pos) {
     var state = level.getBlockState(pos);
     var block = state.getBlock();
-    return state.canOcclude()
-        ||
-        block instanceof RedderstoneWireBlock
-        ||
-        state.isRedstoneConductor(level, pos)
-        ||
-        block == Blocks.REDSTONE_WIRE;
+    if(
+      state.canOcclude()
+      ||
+      block instanceof RedderstoneWireBlock
+      ||
+      state.isRedstoneConductor(level, pos)
+      ||
+      block == Blocks.REDSTONE_WIRE
+    )
+      return true;
+
+    state = level.getBlockState(pos.above());
+    block = state.getBlock();
+    if(
+      state.canOcclude()
+      ||
+      block instanceof RedderstoneWireBlock
+      ||
+      state.isRedstoneConductor(level, pos)
+      ||
+      block == Blocks.REDSTONE_WIRE
+    )
+      return true;
+
+    state = level.getBlockState(pos.below());
+    block = state.getBlock();
+    if(
+      state.canOcclude()
+      ||
+      block instanceof RedderstoneWireBlock
+      ||
+      state.isRedstoneConductor(level, pos)
+      ||
+      block == Blocks.REDSTONE_WIRE
+    )
+      return true;
+
+    return false;
   }
   @Override
   public void neighborChanged(BlockState blockState, Level level, BlockPos pos, Block block, BlockPos blockPos2, boolean bl) {
