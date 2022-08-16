@@ -48,44 +48,22 @@ public class RedderstoneWireBlock extends RedderstoneEmitter implements Redderst
   public boolean connectsTo(Level level, BlockPos pos) {
     var state = level.getBlockState(pos);
     var block = state.getBlock();
-    if(
-      state.canOcclude()
-      ||
+    return
       block instanceof RedderstoneWireBlock
       ||
       state.isRedstoneConductor(level, pos)
       ||
-      block == Blocks.REDSTONE_WIRE
-    )
-      return true;
+      block == Blocks.REDSTONE_WIRE;
+  }
 
-    state = level.getBlockState(pos.above());
-    block = state.getBlock();
-    if(
-      state.canOcclude()
-      ||
-      block instanceof RedderstoneWireBlock
-      ||
-      state.isRedstoneConductor(level, pos)
-      ||
-      block == Blocks.REDSTONE_WIRE
-    )
-      return true;
+  public boolean connectsToDisplaced(Level level, BlockPos pos) {
+    var state = level.getBlockState(pos);
+    var block = state.getBlock();
+    return block instanceof RedderstoneWireBlock || block == Blocks.REDSTONE_WIRE;
+  }
 
-    state = level.getBlockState(pos.below());
-    block = state.getBlock();
-    if(
-      state.canOcclude()
-      ||
-      block instanceof RedderstoneWireBlock
-      ||
-      state.isRedstoneConductor(level, pos)
-      ||
-      block == Blocks.REDSTONE_WIRE
-    )
-      return true;
-
-    return false;
+  public boolean connectsToFuzzy(Level level, BlockPos pos) {
+    return connectsTo(level, pos) || connectsToDisplaced(level, pos.above()) || connectsToDisplaced(level, pos.below());
   }
   @Override
   public void neighborChanged(BlockState blockState, Level level, BlockPos pos, Block block, BlockPos blockPos2, boolean bl) {
@@ -98,19 +76,19 @@ public class RedderstoneWireBlock extends RedderstoneEmitter implements Redderst
     return defaultBlockState()
       .setValue(
         NORTH,
-        connectsTo(level, pos.north())
+        connectsToFuzzy(level, pos.north())
       )
       .setValue(
         SOUTH,
-        connectsTo(level, pos.south())
+        connectsToFuzzy(level, pos.south())
       )
       .setValue(
         EAST,
-        connectsTo(level, pos.east())
+        connectsToFuzzy(level, pos.east())
       )
       .setValue(
         WEST,
-        connectsTo(level, pos.west())
+        connectsToFuzzy(level, pos.west())
       );
   }
 

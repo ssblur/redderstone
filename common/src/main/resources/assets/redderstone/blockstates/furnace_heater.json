@@ -1,0 +1,40 @@
+{
+  "variants": {
+    "active=true,facing=north": {
+      "model": "redderstone:block/furnace_heater_active"
+    },
+    "active=false,facing=north": {
+      "model": "redderstone:block/furnace_heater_inactive"
+    },
+    "active=true,facing=south": {
+      "model": "redderstone:block/furnace_heater_active"
+    },
+    "active=false,facing=south": {
+      "model": "redderstone:block/furnace_heater_inactive"
+    },
+    "active=true,facing=east": {
+      "model": "redderstone:block/furnace_heater_active"
+    },
+    "active=false,facing=east": {
+      "model": "redderstone:block/furnace_heater_inactive"
+    },
+    "active=true,facing=west": {
+      "model": "redderstone:block/furnace_heater_active"
+    },
+    "active=false,facing=west": {
+      "model": "redderstone:block/furnace_heater_inactive"
+    },
+    "active=true,facing=up": {
+      "model": "redderstone:block/furnace_heater_active_up"
+    },
+    "active=false,facing=up": {
+      "model": "redderstone:block/furnace_heater_inactive_up"
+    },
+    "active=true,facing=down": {
+      "model": "redderstone:block/furnace_heater_active_down"
+    },
+    "active=false,facing=down": {
+      "model": "redderstone:block/furnace_heater_inactive_down"
+    }
+  }
+}

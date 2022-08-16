@@ -7,14 +7,14 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class RedderstoneBlockTile extends RedderstoneTile {
-  public RedderstoneBlockTile(BlockPos blockPos, BlockState blockState) {
-    super(RedderstoneMod.REDDERSTONE_BLOCK_TYPE.get(), blockPos, blockState);
+public class FurnaceHeaterTile extends RedderstoneTile {
+  public FurnaceHeaterTile(BlockPos blockPos, BlockState blockState) {
+    super(RedderstoneMod.FURNACE_HEATER_TYPE.get(), blockPos, blockState);
   }
 
   public static <T extends BlockEntity> void tick(Level level, BlockPos pos, BlockState state, T entity) {
-    if(entity instanceof RedderstoneBlockTile && !entity.isRemoved()) {
-      RedderstoneUtility.setRedstoneLevel(level, pos, 32);
+    if(entity instanceof FurnaceHeaterTile && !entity.isRemoved()) {
+
     }
   }
 }

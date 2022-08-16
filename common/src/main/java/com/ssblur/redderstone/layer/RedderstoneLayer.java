@@ -5,6 +5,7 @@ import com.ssblur.redderstone.block.RedderstoneWireBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 
@@ -68,7 +69,12 @@ public class RedderstoneLayer {
               .defaultBlockState(),
             0
           );
-          level.sendBlockUpdated(blockPos, level.getBlockState(blockPos), RedderstoneMod.REDDERSTONE_WIRE.get().defaultBlockState(), 0);
+          level.sendBlockUpdated(
+            blockPos,
+            level.getBlockState(blockPos),
+            ((RedderstoneWireBlock) RedderstoneMod.REDDERSTONE_WIRE.get()).getConnectedState(level, pos),
+            0
+          );
         }
       }
     layerMemory.clear();

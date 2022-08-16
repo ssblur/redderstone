@@ -4,5 +4,13 @@
   "item.redderstone.vermilion_dust": "Vermilion Dust",
 
   "block.redderstone.redderstone_wire": "Redderstone Wire",
-  "block.redderstone.redderstone_block": "Redderstone Block"
+  "block.redderstone.redderstone_block": "Redderstone Block",
+  "block.redderstone.furnace_heater": "Redstone Furnace Heater",
+
+  "tooltip.redderstone.hold_for_info": "§7Hold §cthe sneak key§7 for more info.",
+  "tooltip.redderstone.furnace_heater_1": "Heats a furnace using a different shade of redstone.",
+  "tooltip.redderstone.furnace_heater_2": "Requires a signal of at least 24",
+  "tooltip.redderstone.redderstone_block_1": "Outputs a constant Redstone signal of 32.",
+  "tooltip.redderstone.redderstone_block_2": "This item is intended to be used for debugging.",
+  "tooltip.redderstone.redderstone_block_3": "You shouldn't be able to obtain it normally."
 }
