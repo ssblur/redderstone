@@ -3,11 +3,9 @@
   "ambientocclusion": false,
   "render_type": "cutout",
   "textures": {
-    "1": "redderstone:block/redderstone_wire_east",
     "3": "redderstone:block/redderstone_connector_13y",
     "4": "redderstone:block/machine_side_13y",
     "5": "redderstone:block/machine_side_13y_2",
-    "9": "redderstone:block/redderstone_wire",
     "particle": "redderstone:block/redderstone_wire_north"
   },
   "elements": [
@@ -76,148 +74,6 @@
             16
           ],
           "texture": "#5"
-        }
-      }
-    },
-    {
-      "from": [
-        0,
-        0,
-        5
-      ],
-      "to": [
-        6,
-        0.3,
-        11
-      ],
-      "faces": {
-        "north": {
-          "uv": [
-            11,
-            5,
-            16,
-            11
-          ],
-          "rotation": 180,
-          "texture": "#1"
-        },
-        "east": {
-          "uv": [
-            11,
-            5,
-            16,
-            11
-          ],
-          "rotation": 180,
-          "texture": "#1"
-        },
-        "south": {
-          "uv": [
-            11,
-            5,
-            16,
-            11
-          ],
-          "rotation": 180,
-          "texture": "#1"
-        },
-        "west": {
-          "uv": [
-            11,
-            5,
-            16,
-            11
-          ],
-          "rotation": 180,
-          "texture": "#1"
-        },
-        "up": {
-          "uv": [
-            11,
-            5,
-            16,
-            11
-          ],
-          "rotation": 180,
-          "texture": "#1"
-        },
-        "down": {
-          "uv": [
-            11,
-            5,
-            16,
-            11
-          ],
-          "rotation": 180,
-          "texture": "#1"
-        }
-      }
-    },
-    {
-      "from": [
-        6,
-        0,
-        5
-      ],
-      "to": [
-        12,
-        0.31,
-        11
-      ],
-      "faces": {
-        "north": {
-          "uv": [
-            5,
-            5,
-            11,
-            11
-          ],
-          "texture": "#9"
-        },
-        "east": {
-          "uv": [
-            5,
-            5,
-            11,
-            11
-          ],
-          "texture": "#9"
-        },
-        "south": {
-          "uv": [
-            5,
-            5,
-            11,
-            11
-          ],
-          "texture": "#9"
-        },
-        "west": {
-          "uv": [
-            5,
-            5,
-            11,
-            11
-          ],
-          "texture": "#9"
-        },
-        "up": {
-          "uv": [
-            5,
-            5,
-            11,
-            11
-          ],
-          "texture": "#9"
-        },
-        "down": {
-          "uv": [
-            5,
-            5,
-            11,
-            11
-          ],
-          "texture": "#9"
         }
       }
     }

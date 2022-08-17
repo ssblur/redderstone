@@ -23,15 +23,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import java.util.function.Function;
 
-public class RedderstoneWireBlock extends RedderstoneEmitter implements RedderstoneConductor {
-  public static final BooleanProperty EAST = BooleanProperty.create("east");
-  public static final BooleanProperty NORTH = BooleanProperty.create("north");
-  public static final BooleanProperty SOUTH = BooleanProperty.create("south");
-  public static final BooleanProperty WEST = BooleanProperty.create("west");
-  public static final BooleanProperty EAST_UP = BooleanProperty.create("east_up");
-  public static final BooleanProperty WEST_UP = BooleanProperty.create("west_up");
-  public static final BooleanProperty NORTH_UP = BooleanProperty.create("north_up");
-  public static final BooleanProperty SOUTH_UP = BooleanProperty.create("south_up");
+public class RedderstoneWireBlock extends RedderstoneEmitter implements RedderstoneConductor, WireConnectable {
   public static final int COLOR_HEX = 0xFF8800;
   public static final Vector3f COLOR = new Vector3f(Vec3.fromRGB24(COLOR_HEX));
   public static final VoxelShape SHAPE = Shapes.box(0f, 0f, 0f, 1f, 0.31f, 1f);
@@ -66,40 +58,6 @@ public class RedderstoneWireBlock extends RedderstoneEmitter implements Redderst
     level.addParticle(new DustParticleOptions(COLOR, 1.0f), (double)blockPos.getX() + x, (double)blockPos.getY() + y, (double)blockPos.getZ() + z, 0.0, 0.0, 0.0);
   }
 
-  public boolean connectsTo(Level level, BlockPos pos) {
-    var state = level.getBlockState(pos);
-    var block = state.getBlock();
-    return
-      block instanceof RedderstoneWireBlock
-      ||
-      block == Blocks.REDSTONE_WIRE;
-  }
-
-  public boolean connectsOnSide(Level level, BlockPos pos, Direction dir) {
-    var state = level.getBlockState(pos);
-    var block = state.getBlock();
-    return
-      block instanceof RedderstoneWireBlock
-        ||
-        block == Blocks.REDSTONE_WIRE
-        ||
-        (
-          block instanceof RedderstoneConnector connector
-            &&
-            connector.connectsOnSide(state, level, pos, dir)
-        );
-  }
-
-  public boolean connectsToDisplaced(Level level, BlockPos pos) {
-    var state = level.getBlockState(pos);
-    var block = state.getBlock();
-    return block instanceof RedderstoneWireBlock || block == Blocks.REDSTONE_WIRE;
-  }
-
-  public boolean connectsToFuzzy(Level level, BlockPos pos, Direction dir) {
-    return connectsOnSide(level, pos, dir) || connectsToDisplaced(level, pos.above()) || connectsToDisplaced(level, pos.below());
-  }
-
   @Override
   public void neighborChanged(BlockState blockState, Level level, BlockPos pos, Block block, BlockPos blockPos2, boolean bl) {
     var state = getConnectedState(level, pos);
@@ -109,39 +67,7 @@ public class RedderstoneWireBlock extends RedderstoneEmitter implements Redderst
   }
 
   public BlockState getConnectedState(Level level, BlockPos pos) {
-    return defaultBlockState()
-      .setValue(
-        NORTH,
-        connectsToFuzzy(level, pos.north(), Direction.SOUTH)
-      )
-      .setValue(
-        SOUTH,
-        connectsToFuzzy(level, pos.south(), Direction.NORTH)
-      )
-      .setValue(
-        EAST,
-        connectsToFuzzy(level, pos.east(), Direction.WEST)
-      )
-      .setValue(
-        WEST,
-        connectsToFuzzy(level, pos.west(), Direction.EAST)
-      )
-      .setValue(
-        NORTH_UP,
-        connectsTo(level, pos.north().above())
-      )
-      .setValue(
-        SOUTH_UP,
-        connectsTo(level, pos.south().above())
-      )
-      .setValue(
-        EAST_UP,
-        connectsTo(level, pos.east().above())
-      )
-      .setValue(
-        WEST_UP,
-        connectsTo(level, pos.west().above())
-      );
+    return withConnectedState(defaultBlockState(), level, pos);
   }
 
   public BlockState getStateForPlacement(BlockPlaceContext blockPlaceContext) {

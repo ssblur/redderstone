@@ -17,11 +17,25 @@ public class FacingBlock extends Block implements RedderstoneConnector {
 
   @Override
   public BlockState getStateForPlacement(BlockPlaceContext blockPlaceContext) {
-    return defaultBlockState().setValue(FACING, blockPlaceContext.getNearestLookingDirection().getOpposite());
+    var state = defaultBlockState().setValue(FACING, blockPlaceContext.getNearestLookingDirection().getOpposite());
+    if(this instanceof WireConnectable wire)
+      state = wire.withConnectedState(state, blockPlaceContext.getLevel(), blockPlaceContext.getClickedPos());
+    return state;
   }
 
   @Override
   public boolean connectsOnSide(BlockState blockState, Level level, BlockPos blockPos, Direction direction) {
+    if(this instanceof WireConnectable)
+      return direction.getAxis() != Direction.Axis.Y;
     return blockState.getValue(FACING) == direction;
+  }
+
+  public void neighborChanged(BlockState blockState, Level level, BlockPos pos, Block block, BlockPos blockPos2, boolean bl) {
+    if(this instanceof WireConnectable wire) {
+      var state = wire.withConnectedState(blockState, level, pos);
+      if(!state.equals(blockState))
+        level.setBlock(pos, state, 0);
+      level.sendBlockUpdated(pos, blockState, blockState, 0);
+    }
   }
 }

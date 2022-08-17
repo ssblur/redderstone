@@ -20,7 +20,7 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import org.jetbrains.annotations.Nullable;
 
-public class FurnaceHeaterBlock extends FacingBlock implements EntityBlock {
+public class FurnaceHeaterBlock extends FacingBlock implements EntityBlock, WireConnectable, RedderstoneConductor {
   public static final BooleanProperty ACTIVE = BooleanProperty.create("active");
 
   public FurnaceHeaterBlock() {
@@ -45,13 +45,6 @@ public class FurnaceHeaterBlock extends FacingBlock implements EntityBlock {
   }
 
   protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-    builder.add(new Property[]{ACTIVE, FACING});
-  }
-
-  @Override
-  public boolean connectsOnSide(BlockState blockState, Level level, BlockPos blockPos, Direction direction) {
-    if(blockState.getValue(FACING).getAxis() == Direction.Axis.Y)
-      return direction.getAxis() == Direction.Axis.X || direction.getAxis() == Direction.Axis.Z;
-    return blockState.getValue(FACING) == direction;
+    builder.add(ACTIVE, FACING, RedderstoneWireBlock.NORTH, RedderstoneWireBlock.SOUTH, RedderstoneWireBlock.EAST, RedderstoneWireBlock.WEST);
   }
 }

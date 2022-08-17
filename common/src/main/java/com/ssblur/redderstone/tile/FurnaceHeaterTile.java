@@ -51,17 +51,11 @@ public class FurnaceHeaterTile extends RedderstoneTile {
   }
 
   public int getRedstone() {
-    if(getBlockState().getValue(FurnaceHeaterBlock.FACING).getAxis() == Direction.Axis.Y)
-      return NumberUtils.max(
-        RedderstoneUtility.getRedstoneLevel(level, worldPosition.east(), Direction.WEST),
-        RedderstoneUtility.getRedstoneLevel(level, worldPosition.west(), Direction.EAST),
-        RedderstoneUtility.getRedstoneLevel(level, worldPosition.north(), Direction.SOUTH),
-        RedderstoneUtility.getRedstoneLevel(level, worldPosition.south(), Direction.NORTH)
-      );
-    return RedderstoneUtility.getRedstoneLevel(
-      level,
-      worldPosition.relative(getBlockState().getValue(FurnaceHeaterBlock.FACING)),
-      getBlockState().getValue(FurnaceHeaterBlock.FACING)
+    return NumberUtils.max(
+      RedderstoneUtility.getRedstoneLevel(level, worldPosition.east(), Direction.WEST),
+      RedderstoneUtility.getRedstoneLevel(level, worldPosition.west(), Direction.EAST),
+      RedderstoneUtility.getRedstoneLevel(level, worldPosition.north(), Direction.SOUTH),
+      RedderstoneUtility.getRedstoneLevel(level, worldPosition.south(), Direction.NORTH)
     );
   }
 
@@ -71,24 +65,12 @@ public class FurnaceHeaterTile extends RedderstoneTile {
   }
 
   public static <T extends BlockEntity> void tick(Level level, BlockPos pos, BlockState state, T entity) {
-    if(entity instanceof FurnaceHeaterTile && !entity.isRemoved())
-      if(
-        RedderstoneUtility.getRedstoneLevel(
-          level,
-          pos.relative(state.getValue(FurnaceHeaterBlock.FACING)),
-          state.getValue(FurnaceHeaterBlock.FACING)
-        ) >= 24
-      ) {
+    if(entity instanceof FurnaceHeaterTile tile && !entity.isRemoved())
+      if(tile.getRedstone() >= 24) {
         setActive(level, pos, true);
         if(level.getBlockEntity(pos.relative(state.getValue(FurnaceHeaterBlock.FACING).getOpposite())) instanceof AbstractFurnaceBlockEntity furnace) {
           addCookTime(furnace);
-          if (
-            RedderstoneUtility.getRedstoneLevel(
-              level,
-              pos.relative(state.getValue(FurnaceHeaterBlock.FACING)),
-              state.getValue(FurnaceHeaterBlock.FACING)
-            ) >= 32
-          )
+          if (tile.getRedstone() >= 32)
             expedite(furnace);
         }
       } else

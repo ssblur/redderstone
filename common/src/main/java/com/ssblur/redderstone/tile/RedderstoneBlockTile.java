@@ -14,7 +14,7 @@ public class RedderstoneBlockTile extends RedderstoneTile {
 
   public static <T extends BlockEntity> void tick(Level level, BlockPos pos, BlockState state, T entity) {
     if(entity instanceof RedderstoneBlockTile && !entity.isRemoved()) {
-      RedderstoneUtility.setRedstoneLevel(level, pos, 32);
+      RedderstoneUtility.setRedstoneLevel(level, pos, 40);
     }
   }
 }
