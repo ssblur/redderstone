@@ -65,6 +65,11 @@ public class FurnaceHeaterTile extends RedderstoneTile {
     );
   }
 
+  public static void setActive(Level level, BlockPos pos, boolean active) {
+    if(level.getBlockState(pos).getValue(FurnaceHeaterBlock.ACTIVE) != active)
+      level.setBlockAndUpdate(pos, level.getBlockState(pos).setValue(FurnaceHeaterBlock.ACTIVE, active));
+  }
+
   public static <T extends BlockEntity> void tick(Level level, BlockPos pos, BlockState state, T entity) {
     if(entity instanceof FurnaceHeaterTile && !entity.isRemoved())
       if(
@@ -74,6 +79,7 @@ public class FurnaceHeaterTile extends RedderstoneTile {
           state.getValue(FurnaceHeaterBlock.FACING)
         ) >= 24
       ) {
+        setActive(level, pos, true);
         if(level.getBlockEntity(pos.relative(state.getValue(FurnaceHeaterBlock.FACING).getOpposite())) instanceof AbstractFurnaceBlockEntity furnace) {
           addCookTime(furnace);
           if (
@@ -85,6 +91,7 @@ public class FurnaceHeaterTile extends RedderstoneTile {
           )
             expedite(furnace);
         }
-      }
+      } else
+        setActive(level, pos, false);
   }
 }
