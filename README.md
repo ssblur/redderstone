@@ -17,3 +17,7 @@ high enough Redstone signals. You can (eventually) find information about all of
 ## Why is it orange?
 
 Because Redstone is already pretty red, and I didn't want it to look the same.
+
+## Is this survival ready?
+
+Not yet, sorry. This version was submitted strictly so I didn't forget to submit something.

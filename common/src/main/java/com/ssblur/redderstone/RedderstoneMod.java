@@ -12,6 +12,9 @@ import com.ssblur.redderstone.item.DescriptiveBlockItem;
 import com.ssblur.redderstone.tile.RedderstoneBlockTile;
 import dev.architectury.event.events.common.BlockEvent;
 import dev.architectury.event.events.common.TickEvent;
+import dev.architectury.injectables.annotations.ExpectPlatform;
+import dev.architectury.injectables.annotations.PlatformOnly;
+import dev.architectury.platform.Platform;
 import dev.architectury.registry.CreativeTabRegistry;
 import dev.architectury.registry.client.rendering.RenderTypeRegistry;
 import dev.architectury.registry.registries.DeferredRegister;
@@ -106,6 +109,7 @@ public class RedderstoneMod {
   }
 
   @Environment(EnvType.CLIENT)
+  @PlatformOnly("fabric")
   public static void registerRenderTypes() {
     RenderTypeRegistry.register(RenderType.cutout(), RedderstoneMod.REDDERSTONE_WIRE.get());
     RenderTypeRegistry.register(RenderType.cutout(), RedderstoneMod.FURNACE_HEATER.get());
