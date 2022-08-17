@@ -32,16 +32,16 @@
       "model": "redderstone:block/furnace_heater_inactive",
       "y": 0
     },
-    "active=true,facing=up": {
+    "active=true,facing=down": {
       "model": "redderstone:block/furnace_heater_active_up"
     },
-    "active=false,facing=up": {
+    "active=false,facing=down": {
       "model": "redderstone:block/furnace_heater_inactive_up"
     },
-    "active=true,facing=down": {
+    "active=true,facing=up": {
       "model": "redderstone:block/furnace_heater_active_down"
     },
-    "active=false,facing=down": {
+    "active=false,facing=up": {
       "model": "redderstone:block/furnace_heater_inactive_down"
     }
   }
