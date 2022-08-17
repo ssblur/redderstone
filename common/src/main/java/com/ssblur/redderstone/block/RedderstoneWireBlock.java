@@ -17,6 +17,7 @@ import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
@@ -49,20 +50,20 @@ public class RedderstoneWireBlock extends RedderstoneEmitter implements Redderst
   }
 
   @Override
-  public void animateTick(BlockState blockState, Level level, BlockPos blockPos, RandomSource random) {
-    if (random.nextFloat() >= 0.1f) {
-      return;
-    }
-    float r = 0.3f;
-    double x = 0.5 + random.nextFloat() * r;
-    double y = 0.2 + random.nextFloat() * r;
-    double z = 0.5 + random.nextFloat() * r;
-    level.addParticle(new DustParticleOptions(COLOR, 1.0f), (double)blockPos.getX() + x, (double)blockPos.getY() + y, (double)blockPos.getZ() + z, 0.0, 0.0, 0.0);
+  public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
+    return SHAPE;
   }
 
   @Override
-  protected ImmutableMap<BlockState, VoxelShape> getShapeForEachState(Function<BlockState, VoxelShape> function) {
-    return this.stateDefinition.getPossibleStates().stream().collect(ImmutableMap.toImmutableMap(Function.identity(), state -> SHAPE));
+  public void animateTick(BlockState blockState, Level level, BlockPos blockPos, RandomSource random) {
+    if (random.nextFloat() >= 0.2f) {
+      return;
+    }
+    float r = 0.3f;
+    double x = 0.4 + random.nextFloat() * r;
+    double y = 0.0 + random.nextFloat() * r;
+    double z = 0.4 + random.nextFloat() * r;
+    level.addParticle(new DustParticleOptions(COLOR, 1.0f), (double)blockPos.getX() + x, (double)blockPos.getY() + y, (double)blockPos.getZ() + z, 0.0, 0.0, 0.0);
   }
 
   public boolean connectsTo(Level level, BlockPos pos) {
