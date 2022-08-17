@@ -1,5 +1,6 @@
-package com.ssblur.redderstone.block;
+package com.ssblur.redderstone.block.base;
 
+import com.ssblur.redderstone.block.RedderstoneWireBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;

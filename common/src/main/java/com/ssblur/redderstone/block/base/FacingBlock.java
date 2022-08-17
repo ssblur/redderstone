@@ -1,4 +1,4 @@
-package com.ssblur.redderstone.block;
+package com.ssblur.redderstone.block.base;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

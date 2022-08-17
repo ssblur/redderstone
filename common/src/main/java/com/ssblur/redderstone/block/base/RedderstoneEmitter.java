@@ -1,4 +1,4 @@
-package com.ssblur.redderstone.block;
+package com.ssblur.redderstone.block.base;
 
 import com.ssblur.redderstone.RedderstoneUtility;
 import com.ssblur.redderstone.layer.RedderstoneLayer;

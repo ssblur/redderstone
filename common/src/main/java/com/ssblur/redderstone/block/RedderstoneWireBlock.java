@@ -1,7 +1,9 @@
 package com.ssblur.redderstone.block;
 
-import com.google.common.collect.ImmutableMap;
 import com.mojang.math.Vector3f;
+import com.ssblur.redderstone.block.base.RedderstoneConductor;
+import com.ssblur.redderstone.block.base.RedderstoneEmitter;
+import com.ssblur.redderstone.block.base.WireConnectable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.DustParticleOptions;
@@ -12,7 +14,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
@@ -20,8 +21,6 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-
-import java.util.function.Function;
 
 public class RedderstoneWireBlock extends RedderstoneEmitter implements RedderstoneConductor, WireConnectable {
   public static final int COLOR_HEX = 0xFF8800;

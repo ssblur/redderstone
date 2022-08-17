@@ -1,21 +1,19 @@
 package com.ssblur.redderstone.block;
 
+import com.ssblur.redderstone.block.base.FacingBlock;
+import com.ssblur.redderstone.block.base.RedderstoneConductor;
+import com.ssblur.redderstone.block.base.WireConnectable;
 import com.ssblur.redderstone.tile.FurnaceHeaterTile;
-import com.ssblur.redderstone.tile.RedderstoneBlockTile;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
-import net.minecraft.world.level.block.FurnaceBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import org.jetbrains.annotations.Nullable;

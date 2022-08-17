@@ -1,18 +1,11 @@
 package com.ssblur.redderstone;
 
-import com.ssblur.redderstone.block.RedderstoneConductor;
-import com.ssblur.redderstone.block.RedderstoneEmitter;
-import com.ssblur.redderstone.block.RedderstoneReceiver;
-import com.ssblur.redderstone.block.RedderstoneWireBlock;
+import com.ssblur.redderstone.block.base.RedderstoneConductor;
 import com.ssblur.redderstone.layer.RedderstoneLayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.RedstoneTorchBlock;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.RedstoneSide;
 
 import java.util.ArrayList;
 import java.util.HashMap;
