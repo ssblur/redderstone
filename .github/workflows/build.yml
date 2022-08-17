@@ -19,15 +19,15 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: Release
-          path:
-            - fabric/build/libs/redderstone-*.jar
-              forge/build/libs/redderstone-*.jar
+          path: |
+            fabric/build/libs/redderstone-*.jar
+            forge/build/libs/redderstone-*.jar
       - name: "Release"
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           prerelease: false
-          files:
-            - fabric/build/libs/redderstone-*.jar
-              forge/build/libs/redderstone-*.jar
+          files: |
+            fabric/build/libs/redderstone-*.jar
+            forge/build/libs/redderstone-*.jar
 
