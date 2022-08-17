@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class RedderstoneUtility {
-  public record PosDirection(BlockPos pos, Direction direction){};
+  public record PosDirection(BlockPos pos, Direction direction){}
   public static PosDirection[] surrounding(BlockPos pos) {
     return new PosDirection[] {
       new PosDirection(pos.above(), Direction.DOWN),
