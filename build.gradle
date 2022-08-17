@@ -1,6 +1,7 @@
 plugins {
     id "architectury-plugin" version "3.4-SNAPSHOT"
     id "dev.architectury.loom" version "0.12.0-SNAPSHOT" apply false
+    id "com.palantir.git-version" version "0.15.0"
 }
 
 architectury {
@@ -27,9 +28,10 @@ allprojects {
     apply plugin: "java"
     apply plugin: "architectury-plugin"
     apply plugin: "maven-publish"
+    apply plugin: "com.palantir.git-version"
 
     archivesBaseName = rootProject.archives_base_name
-    version = rootProject.mod_version
+    version = gitVersion()
     group = rootProject.maven_group
 
     repositories {
