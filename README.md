@@ -1,6 +1,6 @@
 ![Redderstone Banner](https://raw.githubusercontent.com/ssblur/redderstone/main/documentation/assets/banner.png)
 
-# RedderStone
+# Redderstone
 
 A mod that thinks 15 is not high enough.
 
@@ -12,7 +12,7 @@ This mod adds sources that provide a Redstone signal higher than 15, and steps u
 
 It also adds device(s) (only one at the writing of this README) that produce extraordinary effects when provided with 
 high enough Redstone signals. You can (eventually) find information about all of these items in the 
-[Documentation](https://github.com/ssblur/documentation/documentation.md) section of the GitHub repository.
+[Documentation](https://github.com/ssblur/redderstone/tree/main/documentation) section of the GitHub repository.
 
 ## Why is it orange?
 

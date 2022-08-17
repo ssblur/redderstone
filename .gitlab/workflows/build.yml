@@ -1,0 +1,33 @@
+name: build
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  build:
+    permissions: write-all
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build Forge
+        run: ./gradlew forge:build
+      - name: Build Fabric
+        run: ./gradlew fabric:build
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: Release
+          path:
+            - fabric/build/libs/redderstone-*.jar
+            - forge/build/libs/redderstone-*.jar
+      - name: "Release"
+        uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false
+          files:
+            - fabric/build/libs/redderstone-*.jar
+            - forge/build/libs/redderstone-*.jar
+
