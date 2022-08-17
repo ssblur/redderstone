@@ -1,4 +1,4 @@
-![Redderstone Banner](documentation/assets/banner.png)
+![Redderstone Banner](https://raw.githubusercontent.com/ssblur/redderstone/main/documentation/assets/banner.png)
 
 # RedderStone
 
