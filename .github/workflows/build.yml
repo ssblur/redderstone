@@ -20,9 +20,10 @@ jobs:
       - name: Build Fabric
         run: bash ./gradlew fabric:build
       - name: Cleanup
-        run: rm */build/libs/redderstone-*-dev-shadow.jar
-          - bash -c 'for file in fabric/build/libs/*.jar; do mv "$file" "${file%.jar}-fabric-quilt.jar"; done'
-          - bash -c 'for file in forge/build/libs/*.jar; do mv "$file" "${file%.jar}-forge.jar"; done'
+        run:
+          rm */build/libs/redderstone-*-dev-shadow.jar
+          bash -c 'for file in fabric/build/libs/*.jar; do mv "$file" "${file%.jar}-fabric-quilt.jar"; done'
+          bash -c 'for file in forge/build/libs/*.jar; do mv "$file" "${file%.jar}-forge.jar"; done'
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
