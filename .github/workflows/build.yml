@@ -21,7 +21,7 @@ jobs:
           name: Release
           path:
             - fabric/build/libs/redderstone-*.jar
-            - forge/build/libs/redderstone-*.jar
+              forge/build/libs/redderstone-*.jar
       - name: "Release"
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
@@ -29,5 +29,5 @@ jobs:
           prerelease: false
           files:
             - fabric/build/libs/redderstone-*.jar
-            - forge/build/libs/redderstone-*.jar
+              forge/build/libs/redderstone-*.jar
 
