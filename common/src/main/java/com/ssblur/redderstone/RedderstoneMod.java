@@ -9,6 +9,7 @@ import com.ssblur.redderstone.events.RedderstonePreTickEvent;
 import com.ssblur.redderstone.events.RedderstoneTickEvent;
 import com.ssblur.redderstone.item.CraftingComponentItem;
 import com.ssblur.redderstone.item.DescriptiveBlockItem;
+import com.ssblur.redderstone.tile.FurnaceHeaterTile;
 import com.ssblur.redderstone.tile.RedderstoneBlockTile;
 import dev.architectury.event.events.common.BlockEvent;
 import dev.architectury.event.events.common.TickEvent;
@@ -84,9 +85,9 @@ public class RedderstoneMod {
     "redderstone_block",
     () -> BlockEntityType.Builder.of(RedderstoneBlockTile::new, REDDERSTONE_BLOCK.get()).build(null)
   );
-  public static final RegistrySupplier<BlockEntityType<FurnaceBlockEntity>> FURNACE_HEATER_TYPE = BLOCK_ENTITY_TYPES.register(
+  public static final RegistrySupplier<BlockEntityType<FurnaceHeaterTile>> FURNACE_HEATER_TYPE = BLOCK_ENTITY_TYPES.register(
     "furnace_heater",
-    () -> BlockEntityType.Builder.of(FurnaceBlockEntity::new, FURNACE_HEATER.get()).build(null)
+    () -> BlockEntityType.Builder.of(FurnaceHeaterTile::new, FURNACE_HEATER.get()).build(null)
   );
 
   public static void init() {
