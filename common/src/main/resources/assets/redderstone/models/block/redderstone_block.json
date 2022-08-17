@@ -1,6 +1,7 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "redderstone:block/redderstone_block"
+    "all": "redderstone:block/redderstone_block",
+    "particle": "redderstone:block/redderstone_block"
   }
 }

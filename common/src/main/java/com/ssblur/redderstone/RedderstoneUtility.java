@@ -15,6 +15,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.RedstoneSide;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class RedderstoneUtility {
   public record PosDirection(BlockPos pos, Direction direction){};
@@ -38,24 +39,24 @@ public class RedderstoneUtility {
   }
 
   public static void setRedstoneLevel(Level level, BlockPos pos, int signal) {
-    setRedstoneLevel(level, pos, signal, new ArrayList<>());
+    setRedstoneLevel(level, pos, signal, new HashMap<>());
   }
 
-  public static void setRedstoneLevel(Level level, BlockPos pos, int signal, ArrayList<BlockPos> traversal) {
+  public static void setRedstoneLevel(Level level, BlockPos pos, int signal, HashMap<BlockPos, Integer> traversal) {
     RedderstoneLayer.getMap(level).setSignal(pos, signal);
 
-    if(signal > 0)
-      for(var p: surrounding(pos)) {
-        if(traversal.contains(p.pos)) continue;
-        traversal.add(p.pos);
+    if(signal <= 0) return;
 
-        var state = level.getBlockState(p.pos);
-        var block = state.getBlock();
+    for(var p: surrounding(pos)) {
+      if(traversal.getOrDefault(p.pos, 0) > signal - 1) continue;
+      traversal.put(p.pos, signal - 1);
 
-        if(block instanceof RedderstoneConductor || block == Blocks.REDSTONE_WIRE)
-          if(signal - 1 != RedderstoneLayer.getMap(level).getMemory(p.pos))
-            setRedstoneLevel(level, p.pos, signal - 1, traversal);
-      }
+      var state = level.getBlockState(p.pos);
+      var block = state.getBlock();
+
+      if(block instanceof RedderstoneConductor || block == Blocks.REDSTONE_WIRE)
+        setRedstoneLevel(level, p.pos, signal - 1, traversal);
+    }
   }
 
   public static void clearRedstoneLevel(Level level, BlockPos pos) {
@@ -63,7 +64,7 @@ public class RedderstoneUtility {
   }
 
   public static void clearRedstoneLevel(Level level, BlockPos pos, ArrayList<BlockPos> traversal) {
-    RedderstoneLayer.getMap(level).clearSignal(pos);
+    RedderstoneLayer.getMap(level).scheduleClear(pos);
 
     for(var p: surrounding(pos)) {
       if(traversal.contains(p.pos)) continue;

@@ -26,10 +26,10 @@ public class DescriptiveBlockItem extends BlockItem {
   @Environment(EnvType.CLIENT)
   @Override
   public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> list, TooltipFlag tooltipFlag) {
-    list.add(Component.literal(I18n.get(firstLine)));
+    list.add(Component.literal("§7" + I18n.get(firstLine)));
     if(Screen.hasShiftDown())
       for(var s: tooltips)
-        list.add(Component.literal(I18n.get(s)));
+        list.add(Component.literal("§7" + I18n.get(s)));
     else
       list.add(Component.literal(I18n.get("tooltip.redderstone.hold_for_info")));
 

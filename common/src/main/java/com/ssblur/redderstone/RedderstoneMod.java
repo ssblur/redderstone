@@ -5,6 +5,7 @@ import com.ssblur.redderstone.block.FurnaceHeaterBlock;
 import com.ssblur.redderstone.block.RedderstoneBlock;
 import com.ssblur.redderstone.block.RedderstoneWireBlock;
 import com.ssblur.redderstone.events.RedderstoneBlockEvent;
+import com.ssblur.redderstone.events.RedderstonePreTickEvent;
 import com.ssblur.redderstone.events.RedderstoneTickEvent;
 import com.ssblur.redderstone.item.CraftingComponentItem;
 import com.ssblur.redderstone.item.DescriptiveBlockItem;
@@ -27,12 +28,12 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.FurnaceBlockEntity;
 
 import java.util.function.Supplier;
 
 public class RedderstoneMod {
   public static final String MOD_ID = "redderstone";
-  public static final int COLOR = 0xC80815;
   // We can use this if we don't want to use DeferredRegister
   public static final Supplier<Registries> REGISTRIES = Suppliers.memoize(() -> Registries.get(MOD_ID));
   // Registering a new creative tab
@@ -56,16 +57,18 @@ public class RedderstoneMod {
     new DescriptiveBlockItem(
       REDDERSTONE_BLOCK.get(),
       new Item.Properties().tab(RedderstoneMod.TAB),
-      "tooltip.redderstone.furnace_heater_1",
-      "tooltip.redderstone.furnace_heater_2"
+      "tooltip.redderstone.redderstone_block_1",
+      "tooltip.redderstone.redderstone_block_2",
+      "tooltip.redderstone.redderstone_block_3"
     ));
   public static final RegistrySupplier<Item> FURNACE_HEATER_ITEM = ITEMS.register("furnace_heater", () ->
     new DescriptiveBlockItem(
       FURNACE_HEATER.get(),
       new Item.Properties().tab(RedderstoneMod.TAB),
-      "tooltip.redderstone.redderstone_block_1",
-      "tooltip.redderstone.redderstone_block_2",
-      "tooltip.redderstone.redderstone_block_3"
+      "tooltip.redderstone.furnace_heater_1",
+      "tooltip.redderstone.furnace_heater_2",
+      "tooltip.redderstone.furnace_heater_3",
+      "tooltip.redderstone.furnace_heater_4"
     ));
 
   // The following items are included for debugging, but are generally unused.
@@ -78,9 +81,9 @@ public class RedderstoneMod {
     "redderstone_block",
     () -> BlockEntityType.Builder.of(RedderstoneBlockTile::new, REDDERSTONE_BLOCK.get()).build(null)
   );
-  public static final RegistrySupplier<BlockEntityType<RedderstoneBlockTile>> FURNACE_HEATER_TYPE = BLOCK_ENTITY_TYPES.register(
+  public static final RegistrySupplier<BlockEntityType<FurnaceBlockEntity>> FURNACE_HEATER_TYPE = BLOCK_ENTITY_TYPES.register(
     "furnace_heater",
-    () -> BlockEntityType.Builder.of(RedderstoneBlockTile::new, FURNACE_HEATER.get()).build(null)
+    () -> BlockEntityType.Builder.of(FurnaceBlockEntity::new, FURNACE_HEATER.get()).build(null)
   );
 
   public static void init() {
@@ -88,6 +91,7 @@ public class RedderstoneMod {
     ITEMS.register();
     BLOCK_ENTITY_TYPES.register();
 
+    TickEvent.ServerLevelTick.SERVER_LEVEL_PRE.register(new RedderstonePreTickEvent());
     TickEvent.ServerLevelTick.SERVER_LEVEL_POST.register(new RedderstoneTickEvent());
 
     var blockEvents = new RedderstoneBlockEvent();

@@ -9,7 +9,7 @@
 		"5": "redderstone:block/machine_side_13y_2",
 		"6": "redderstone:block/redderstone_channel_edge",
 		"7": "redderstone:block/machine_side_8x",
-		"particle": "redderstone:block/redderstone_wire_north"
+      "particle": "redderstone:block/redderstone_block"
 	},
 	"elements": [
 		{

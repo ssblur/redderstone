@@ -18,6 +18,38 @@
     {
       "when": { "south": "true" },
       "apply": { "model": "redderstone:block/redderstone_wire_south" }
+    },
+    {
+      "when": { "east_up": "true" },
+      "apply": {
+        "model": "redderstone:block/redderstone_wire_climb",
+        "x": 90,
+        "y": 270
+      }
+    },
+    {
+      "when": { "south_up": "true" },
+      "apply": {
+        "model": "redderstone:block/redderstone_wire_climb",
+        "x": 90,
+        "y": 0
+      }
+    },
+    {
+      "when": { "west_up": "true" },
+      "apply": {
+        "model": "redderstone:block/redderstone_wire_climb",
+        "x": 90,
+        "y": 90
+      }
+    },
+    {
+      "when": { "north_up": "true" },
+      "apply": {
+        "model": "redderstone:block/redderstone_wire_climb",
+        "x": 90,
+        "y": 180
+      }
     }
   ]
 }

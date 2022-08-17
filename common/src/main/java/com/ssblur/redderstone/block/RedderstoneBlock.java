@@ -5,6 +5,7 @@ import com.ssblur.redderstone.tile.RedderstoneBlockTile;
 import com.ssblur.redderstone.tile.RedderstoneTile;
 import dev.architectury.platform.Platform;
 import dev.architectury.registry.client.rendering.RenderTypeRegistry;
+import net.minecraft.client.gui.components.ChatComponent;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -26,7 +27,7 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import org.jetbrains.annotations.Nullable;
 
-public class RedderstoneBlock extends RedderstoneEmitter implements EntityBlock, RedderstoneConductor {
+public class RedderstoneBlock extends RedderstoneEmitter implements EntityBlock, RedderstoneConductor, RedderstoneConnector {
 
   public RedderstoneBlock() {
     super(
@@ -46,5 +47,10 @@ public class RedderstoneBlock extends RedderstoneEmitter implements EntityBlock,
   @Override
   public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state, BlockEntityType<T> type) {
     return RedderstoneBlockTile::tick;
+  }
+
+  @Override
+  public boolean connectsOnSide(BlockState blockState, Level level, BlockPos blockPos, Direction direction) {
+    return true;
   }
 }

@@ -6,7 +6,8 @@
 		"2": "redderstone:block/redderstone_wire_north",
 		"3": "redderstone:block/redderstone_wire_south",
 		"5": "redderstone:block/redderstone_channel_core",
-		"6": "redderstone:block/redderstone_channel_edge"
+		"6": "redderstone:block/redderstone_channel_edge",
+        "particle": "redderstone:block/redderstone_block"
 	},
 	"elements": [
 		{
