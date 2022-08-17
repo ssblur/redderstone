@@ -12,9 +12,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build Forge
-        run: ./gradlew forge:build
+        run: bash ./gradlew forge:build
       - name: Build Fabric
-        run: ./gradlew fabric:build
+        run: bash ./gradlew fabric:build
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
