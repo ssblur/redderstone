@@ -31,7 +31,9 @@ allprojects {
     apply plugin: "com.palantir.git-version"
 
     archivesBaseName = rootProject.archives_base_name
-    version = gitVersion()
+    def matcher = gitVersion() =~ /^v(\d+\.\d+\.\d+).*/
+    matcher.find()
+    version = matcher.group(1)
     group = rootProject.maven_group
 
     repositories {
