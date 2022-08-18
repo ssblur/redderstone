@@ -1,6 +1,7 @@
 package com.ssblur.redderstone;
 
 import com.google.common.base.Suppliers;
+import com.ssblur.redderstone.block.AlternatorBlock;
 import com.ssblur.redderstone.block.FurnaceHeaterBlock;
 import com.ssblur.redderstone.block.RedderstoneBlock;
 import com.ssblur.redderstone.block.RedderstoneWireBlock;
@@ -9,6 +10,7 @@ import com.ssblur.redderstone.events.RedderstonePreTickEvent;
 import com.ssblur.redderstone.events.RedderstoneTickEvent;
 import com.ssblur.redderstone.item.CraftingComponentItem;
 import com.ssblur.redderstone.item.DescriptiveBlockItem;
+import com.ssblur.redderstone.tile.AlternatorTile;
 import com.ssblur.redderstone.tile.FurnaceHeaterTile;
 import com.ssblur.redderstone.tile.RedderstoneBlockTile;
 import dev.architectury.event.events.common.BlockEvent;
@@ -38,20 +40,16 @@ import java.util.function.Supplier;
 
 public class RedderstoneMod {
   public static final String MOD_ID = "redderstone";
-  // We can use this if we don't want to use DeferredRegister
-  public static final Supplier<Registries> REGISTRIES = Suppliers.memoize(() -> Registries.get(MOD_ID));
   // Registering a new creative tab
   public static final CreativeModeTab TAB = CreativeTabRegistry.create(new ResourceLocation(MOD_ID, "redderstone_tab"), () ->
           new ItemStack(RedderstoneMod.VERMILION_DUST.get()));
 
   public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(MOD_ID, Registry.BLOCK_REGISTRY);
-  public static final RegistrySupplier<Block> REDDERSTONE_BLOCK = BLOCKS.register("redderstone_block", () ->
-    new RedderstoneBlock());
-  public static final RegistrySupplier<Block> FURNACE_HEATER = BLOCKS.register("furnace_heater", () ->
-    new FurnaceHeaterBlock());
+  public static final RegistrySupplier<Block> REDDERSTONE_BLOCK = BLOCKS.register("redderstone_block", RedderstoneBlock::new);
+  public static final RegistrySupplier<Block> FURNACE_HEATER = BLOCKS.register("furnace_heater", FurnaceHeaterBlock::new);
+  public static final RegistrySupplier<Block> ALTERNATOR = BLOCKS.register("alternator", AlternatorBlock::new);
   // The following blocks are not normally directly obtainable.
-  public static final RegistrySupplier<Block> REDDERSTONE_WIRE = BLOCKS.register("redderstone_wire", () ->
-    new RedderstoneWireBlock());
+  public static final RegistrySupplier<Block> REDDERSTONE_WIRE = BLOCKS.register("redderstone_wire", RedderstoneWireBlock::new);
 
 
   public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(MOD_ID, Registry.ITEM_REGISTRY);
@@ -74,7 +72,15 @@ public class RedderstoneMod {
       "tooltip.redderstone.furnace_heater_3",
       "tooltip.redderstone.furnace_heater_4"
     ));
-
+  public static final RegistrySupplier<Item> ALTERNATOR_ITEM = ITEMS.register("alternator", () ->
+    new DescriptiveBlockItem(
+      ALTERNATOR.get(),
+      new Item.Properties().tab(RedderstoneMod.TAB),
+      "tooltip.redderstone.alternator_1",
+      "tooltip.redderstone.alternator_2",
+      "tooltip.redderstone.alternator_3",
+      "tooltip.redderstone.alternator_4"
+    ));
   // The following items are included for debugging, but are generally unused.
   public static final RegistrySupplier<Item> REDDERSTONE_WIRE_ITEM = ITEMS.register("redderstone_wire", () ->
     new BlockItem(REDDERSTONE_WIRE.get(), new Item.Properties()));
@@ -88,6 +94,10 @@ public class RedderstoneMod {
   public static final RegistrySupplier<BlockEntityType<FurnaceHeaterTile>> FURNACE_HEATER_TYPE = BLOCK_ENTITY_TYPES.register(
     "furnace_heater",
     () -> BlockEntityType.Builder.of(FurnaceHeaterTile::new, FURNACE_HEATER.get()).build(null)
+  );
+  public static final RegistrySupplier<BlockEntityType<AlternatorTile>> ALTERNATOR_TYPE = BLOCK_ENTITY_TYPES.register(
+    "alternator",
+    () -> BlockEntityType.Builder.of(AlternatorTile::new, ALTERNATOR.get()).build(null)
   );
 
   public static void init() {
@@ -114,5 +124,6 @@ public class RedderstoneMod {
   public static void registerRenderTypes() {
     RenderTypeRegistry.register(RenderType.cutout(), RedderstoneMod.REDDERSTONE_WIRE.get());
     RenderTypeRegistry.register(RenderType.cutout(), RedderstoneMod.FURNACE_HEATER.get());
+    RenderTypeRegistry.register(RenderType.cutout(), RedderstoneMod.ALTERNATOR.get());
   }
 }

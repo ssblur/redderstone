@@ -6,13 +6,26 @@
   "block.redderstone.redderstone_wire": "Redderstone Wire",
   "block.redderstone.redderstone_block": "Redderstone Block",
   "block.redderstone.furnace_heater": "Redstone Furnace Heater",
+  "block.redderstone.alternator": "Redstone Alternator",
 
   "tooltip.redderstone.hold_for_info": "§7Hold §ethe sneak key§7 for more info.",
+
   "tooltip.redderstone.furnace_heater_1": "Redstone furnace heater",
   "tooltip.redderstone.furnace_heater_2": "Requires a signal of at least 24",
   "tooltip.redderstone.furnace_heater_3": "Expedites cooking starting at 32",
   "tooltip.redderstone.furnace_heater_4": "(Multiple heaters increase this effect)",
-  "tooltip.redderstone.redderstone_block_1": "Outputs a Redstone signal of 32.",
-  "tooltip.redderstone.redderstone_block_2": "This item is intended to be used for debugging.",
-  "tooltip.redderstone.redderstone_block_3": "You shouldn't be able to obtain it normally."
+
+  "tooltip.redderstone.redderstone_block_1": "Outputs a Redstone signal of 40.",
+  "tooltip.redderstone.redderstone_block_2": "This item is intended to be used for demonstration.",
+  "tooltip.redderstone.redderstone_block_3": "You shouldn't be able to obtain it normally.",
+
+  "tooltip.redderstone.alternator_1": "Concentrates and §aalternates§7 a signal.",
+  "tooltip.redderstone.alternator_2": "When provided a constant signal, alternates between",
+  "tooltip.redderstone.alternator_3": "0 and double the signal every 20 ticks.",
+  "tooltip.redderstone.alternator_4": "Max input signal §c30",
+
+  "tooltip.redderstone.inverter_1": "§aInverts§7 an §aalternating signal§7.",
+  "tooltip.redderstone.inverter_2": "When provided a signal for a number of ticks, will output",
+  "tooltip.redderstone.inverter_3": "that signal for the same number of ticks after it ends.",
+  "tooltip.redderstone.inverter_4": "Max input signal §c60§7, max buffer of §c50 ticks"
 }

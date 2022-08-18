@@ -10,6 +10,7 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 
 public class FacingBlock extends Block implements RedderstoneConnector {
   public static final DirectionProperty FACING = DirectionProperty.create("facing");
+  public static final DirectionProperty HORIZONTAL_FACING = DirectionProperty.create("facing", Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST);
 
   public FacingBlock(Properties properties) {
     super(properties);
@@ -17,17 +18,30 @@ public class FacingBlock extends Block implements RedderstoneConnector {
 
   @Override
   public BlockState getStateForPlacement(BlockPlaceContext blockPlaceContext) {
-    var state = defaultBlockState().setValue(FACING, blockPlaceContext.getNearestLookingDirection().getOpposite());
+    BlockState state = defaultBlockState();
+    if(state.hasProperty(FACING))
+      state = state.setValue(FACING, blockPlaceContext.getNearestLookingDirection().getOpposite());
+    else if(state.hasProperty(HORIZONTAL_FACING))
+      state = state.setValue(HORIZONTAL_FACING, blockPlaceContext.getHorizontalDirection().getOpposite());
+
     if(this instanceof WireConnectable wire)
       state = wire.withConnectedState(state, blockPlaceContext.getLevel(), blockPlaceContext.getClickedPos());
     return state;
+  }
+
+  public static Direction getDirection(BlockState state) {
+    if(state.hasProperty(FACING))
+      return state.getValue(FACING);
+    else if(state.hasProperty(HORIZONTAL_FACING))
+      return state.getValue(HORIZONTAL_FACING);
+    return Direction.DOWN;
   }
 
   @Override
   public boolean connectsOnSide(BlockState blockState, Level level, BlockPos blockPos, Direction direction) {
     if(this instanceof WireConnectable)
       return direction.getAxis() != Direction.Axis.Y;
-    return blockState.getValue(FACING) == direction;
+    return getDirection(blockState) == direction;
   }
 
   public void neighborChanged(BlockState blockState, Level level, BlockPos pos, Block block, BlockPos blockPos2, boolean bl) {

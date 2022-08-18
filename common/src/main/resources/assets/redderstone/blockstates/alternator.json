@@ -1,0 +1,84 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "active": "true",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "redderstone:block/redderstone_alternator_active",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "active": "false",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "redderstone:block/redderstone_alternator_inactive",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "active": "true",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "redderstone:block/redderstone_alternator_active",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "active": "false",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "redderstone:block/redderstone_alternator_inactive",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "active": "true",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "redderstone:block/redderstone_alternator_active",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "active": "false",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "redderstone:block/redderstone_alternator_inactive",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "active": "true",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "redderstone:block/redderstone_alternator_active",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "active": "false",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "redderstone:block/redderstone_alternator_inactive",
+        "y": 270
+      }
+    }
+  ]
+}
