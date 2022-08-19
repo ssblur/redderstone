@@ -16,5 +16,6 @@
   "result": {
     "item": "redderstone:furnace_heater",
     "count": 1
-  }
+  },
+  "group": "redderstone"
 }
