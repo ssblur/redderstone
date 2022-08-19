@@ -33,6 +33,7 @@ fullest!
 
 The Alternator is the earliest available method to boost Redstone signals.
 It converts static Redstone signals to higher-level alternating signals.
+
 You can learn more about it [here](blocks/alternator.md).
 
 ### Inverter
@@ -41,7 +42,15 @@ The Inverter is used to invert the phase of some higher-level Redstone
 signals. Given an alternating signal, it will invert its phase. It is 
 often recombined with the original signal in order to convert an 
 alternating signal back into a (dirty) direct signal.
+
 You can learn more about it [here](blocks/inverter.md)
+
+### Furnace Heater
+
+The Furnace Heater accepts high Redstone signals and heats Furnaces,
+Smokers, and Blast Furnaces.
+
+You can learn more about it [here](blocks/furnace_heater.md)
 
 ## Items
 
@@ -49,4 +58,5 @@ You can learn more about it [here](blocks/inverter.md)
 
 Vermillion dust is a blend of Redstone often used in building components
 specialized for higher Redstone signals.
+
 You can learn more about it [here](items/vermilion_dust.md)
