@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "iii",
+    "ivi",
+    " v "
+  ],
+  "key": {
+    "i": {
+      "item": "minecraft:iron_ingot"
+    },
+    "v": {
+      "item": "redderstone:vermilion_dust"
+    }
+  },
+  "result": {
+    "item": "redderstone:furnace_heater",
+    "count": 1
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ccc",
+    "vCv"
+  ],
+  "key": {
+    "c": {
+      "item": "minecraft:cobblestone"
+    },
+    "C": {
+      "item": "minecraft:copper_ingot"
+    },
+    "v": {
+      "item": "redderstone:vermilion_dust"
+    }
+  },
+  "result": {
+    "item": "redderstone:inverter",
+    "count": 1
+  }
+}
