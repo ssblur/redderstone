@@ -21,6 +21,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 
 public class RedderstoneWireBlock extends RedderstoneEmitter implements RedderstoneConductor, WireConnectable {
   public static final int COLOR_HEX = 0xFF8800;
@@ -30,23 +31,19 @@ public class RedderstoneWireBlock extends RedderstoneEmitter implements Redderst
   public RedderstoneWireBlock() {
     super(
       Properties
-        .of(Material.STONE)
+        .of(Material.DECORATION)
         .noOcclusion()
-        .noCollission()
-        .lightLevel(state -> 9)
-        .emissiveRendering((state, level, pos) -> true)
-        .isViewBlocking((state, level, pos) -> false)
-        .color(MaterialColor.COLOR_RED)
     );
   }
 
+  @SuppressWarnings("deprecation")
   @Override
-  public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
+  public VoxelShape getShape(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos, @NotNull CollisionContext collisionContext) {
     return SHAPE;
   }
 
   @Override
-  public void animateTick(BlockState blockState, Level level, BlockPos blockPos, RandomSource random) {
+  public void animateTick(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, RandomSource random) {
     if (random.nextFloat() >= 0.2f) {
       return;
     }
@@ -57,8 +54,9 @@ public class RedderstoneWireBlock extends RedderstoneEmitter implements Redderst
     level.addParticle(new DustParticleOptions(COLOR, 1.0f), (double)blockPos.getX() + x, (double)blockPos.getY() + y, (double)blockPos.getZ() + z, 0.0, 0.0, 0.0);
   }
 
+  @SuppressWarnings("deprecation")
   @Override
-  public void neighborChanged(BlockState blockState, Level level, BlockPos pos, Block block, BlockPos blockPos2, boolean bl) {
+  public void neighborChanged(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos pos, @NotNull Block block, @NotNull BlockPos blockPos2, boolean bl) {
     var state = getConnectedState(level, pos);
     if(!state.equals(blockState))
       level.setBlock(pos, state, 0);
@@ -77,7 +75,7 @@ public class RedderstoneWireBlock extends RedderstoneEmitter implements Redderst
   }
 
   protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-    builder.add(new Property[]{NORTH, EAST, WEST, SOUTH, NORTH_UP, EAST_UP, WEST_UP, SOUTH_UP});
+    builder.add(NORTH, EAST, WEST, SOUTH, NORTH_UP, EAST_UP, WEST_UP, SOUTH_UP);
   }
 
   public int getSignal(BlockState blockState, BlockGetter blockGetter, BlockPos pos, Direction direction) {
