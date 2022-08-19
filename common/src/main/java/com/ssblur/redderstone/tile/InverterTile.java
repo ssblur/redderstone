@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class InverterTile extends RedderstoneTile {
   private static final int PERIOD = 20;
-  private static final int MAX_INPUT = 30;
+  private static final int MAX_INPUT = 60;
   protected int lastSignal;
   public InverterTile(BlockPos blockPos, BlockState blockState) {
     super(RedderstoneMod.INVERTER_TYPE.get(), blockPos, blockState);
@@ -23,11 +23,13 @@ public class InverterTile extends RedderstoneTile {
   }
 
   public void setActive(boolean active) {
+    if(level == null || worldPosition == null) return;
     if(level.getBlockState(worldPosition).getValue(InverterBlock.ACTIVE) != active)
       level.setBlockAndUpdate(worldPosition, level.getBlockState(worldPosition).setValue(InverterBlock.ACTIVE, active));
   }
 
   public void tick() {
+    if(level == null || worldPosition == null) return;
     var offset = (level.getGameTime() + PERIOD) % (PERIOD * 2);
     var direction = getBlockState().getValue(InverterBlock.HORIZONTAL_FACING);
     var signal = RedderstoneUtility.getRedstoneLevel(level, worldPosition.relative(direction.getOpposite()), direction.getOpposite());
@@ -48,7 +50,7 @@ public class InverterTile extends RedderstoneTile {
     if(offset >= PERIOD) {
       var block = level.getBlockState(worldPosition.relative(direction)).getBlock();
       if (block instanceof RedderstoneConductor || block == Blocks.REDSTONE_WIRE)
-        RedderstoneUtility.setRedstoneLevel(level, worldPosition.relative(direction), Math.min(lastSignal, MAX_INPUT) * 2);
+        RedderstoneUtility.setRedstoneLevel(level, worldPosition.relative(direction), Math.min(lastSignal, MAX_INPUT) - 2);
     } else if(offset == 0) {
       RedderstoneUtility.clearRedstoneLevel(level, worldPosition.relative(direction));
     }

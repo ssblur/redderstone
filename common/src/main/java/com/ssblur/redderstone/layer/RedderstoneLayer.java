@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.Blocks;
 import java.util.HashMap;
 
 public class RedderstoneLayer {
-  public static HashMap<ResourceKey<Level>, RedderstoneLayer> MAP = new HashMap<>();
+  public static final HashMap<ResourceKey<Level>, RedderstoneLayer> MAP = new HashMap<>();
 
   public static RedderstoneLayer getMap(Level level) {
     var dimension = level.dimension();
@@ -25,12 +25,12 @@ public class RedderstoneLayer {
     }
   }
 
-  HashMap<BlockPos, Integer> layerSignal = new HashMap<>();
+  final HashMap<BlockPos, Integer> layerSignal = new HashMap<>();
   // layerMemory acts as a mutex for both itself and layerSignal, as they are typically modified at the same time.
   // Technically, I could synchronize with both, but order issues could cause race conditions.
   // This is the lazy option.
-  HashMap<BlockPos, Integer> layerMemory = new HashMap<>();
-  HashMap<BlockPos, Boolean> layerClear = new HashMap<>();
+  final HashMap<BlockPos, Integer> layerMemory = new HashMap<>();
+  final HashMap<BlockPos, Boolean> layerClear = new HashMap<>();
 
 
   public void setSignal(BlockPos pos, int signal) {
@@ -48,7 +48,7 @@ public class RedderstoneLayer {
 
   public void clearSignal(BlockPos pos) {
     synchronized (layerMemory){
-      layerSignal.remove(pos);
+//      layerSignal.remove(pos);
       layerMemory.put(pos, 0);
     }
   }
@@ -77,7 +77,7 @@ public class RedderstoneLayer {
   public void tick(Level level) {
     synchronized (layerMemory) {
       for (var pos : layerMemory.keySet())
-        if (!layerSignal.containsKey(pos) || layerMemory.get(pos) != layerSignal.get(pos)) {
+        if (!layerSignal.containsKey(pos) || !layerMemory.get(pos).equals(layerSignal.get(pos))) {
           layerSignal.put(pos, layerMemory.get(pos));
 
           var blockPos = new BlockPos(pos);
@@ -85,27 +85,17 @@ public class RedderstoneLayer {
           var block = level.getBlockState(blockPos).getBlock();
 
           if (block instanceof RedderstoneWireBlock)
-            if (signal < 16) {
-              level.setBlock(blockPos, Blocks.REDSTONE_WIRE.defaultBlockState(), 0);
-              level.sendBlockUpdated(blockPos, level.getBlockState(blockPos), Blocks.REDSTONE_WIRE.defaultBlockState(), 0);
-            }
+            if (signal < 16)
+              level.setBlockAndUpdate(blockPos, Blocks.REDSTONE_WIRE.defaultBlockState());
 
-          if (signal >= 16 && block == Blocks.REDSTONE_WIRE) {
-            level.setBlock(
+          if (signal >= 16 && block == Blocks.REDSTONE_WIRE)
+            level.setBlockAndUpdate(
               blockPos,
               RedderstoneMod
                 .REDDERSTONE_WIRE
                 .get()
-                .defaultBlockState(),
-              0
+                .defaultBlockState()
             );
-            level.sendBlockUpdated(
-              blockPos,
-              level.getBlockState(blockPos),
-              ((RedderstoneWireBlock) RedderstoneMod.REDDERSTONE_WIRE.get()).getConnectedState(level, pos),
-              0
-            );
-          }
         }
       layerMemory.clear();
     }
