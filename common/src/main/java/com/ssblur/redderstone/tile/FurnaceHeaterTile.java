@@ -18,34 +18,36 @@ import org.apache.commons.lang3.math.NumberUtils;
 
 public class FurnaceHeaterTile extends RedderstoneTile {
   private static final int MAX_TIME = 200;
+  int poweredTicks = 0;
   public FurnaceHeaterTile(BlockPos blockPos, BlockState blockState) {
     super(RedderstoneMod.FURNACE_HEATER_TYPE.get(), blockPos, blockState);
   }
 
-  public static void addCookTime(AbstractFurnaceBlockEntity entity)
+  public void addCookTime(AbstractFurnaceBlockEntity entity)
   {
     var data = entity.dataAccess;
     int burnTime = data.get(AbstractFurnaceBlockEntity.DATA_LIT_TIME);
     if(burnTime < MAX_TIME)
-      data.set(AbstractFurnaceBlockEntity.DATA_LIT_TIME, burnTime + 5);
+      data.set(AbstractFurnaceBlockEntity.DATA_LIT_TIME, burnTime + (poweredTicks >= 20 ? 4 : 1));
 
     activate(entity);
   }
 
-  public static void expedite(AbstractFurnaceBlockEntity entity)
+  public void expedite(AbstractFurnaceBlockEntity entity)
   {
     var data = entity.dataAccess;
     var time = data.get(AbstractFurnaceBlockEntity.DATA_COOKING_PROGRESS);
     var totalTime = data.get(AbstractFurnaceBlockEntity.DATA_COOKING_TOTAL_TIME);
     if(time > 0 && time < totalTime - 1)
-      data.set(AbstractFurnaceBlockEntity.DATA_COOKING_PROGRESS, time + 1);
+      data.set(AbstractFurnaceBlockEntity.DATA_COOKING_PROGRESS, time);
   }
 
   public static void activate(AbstractFurnaceBlockEntity entity)
   {
     var state = entity.getBlockState();
-    if(!state.getValue(AbstractFurnaceBlock.LIT))
-      entity.getLevel().setBlockAndUpdate(
+    var level = entity.getLevel();
+    if(!state.getValue(AbstractFurnaceBlock.LIT) && level != null)
+      level.setBlockAndUpdate(
         entity.getBlockPos(), state.setValue(AbstractFurnaceBlock.LIT, true)
       );
   }
@@ -64,16 +66,25 @@ public class FurnaceHeaterTile extends RedderstoneTile {
       level.setBlockAndUpdate(pos, level.getBlockState(pos).setValue(FurnaceHeaterBlock.ACTIVE, active));
   }
 
-  public static <T extends BlockEntity> void tick(Level level, BlockPos pos, BlockState state, T entity) {
-    if(entity instanceof FurnaceHeaterTile tile && !entity.isRemoved())
-      if(tile.getRedstone() >= 24) {
+  public void tick() {
+    var pos = getBlockPos();
+    if(!this.isRemoved() && level != null)
+      if(this.getRedstone() >= 24) {
+        poweredTicks++;
         setActive(level, pos, true);
-        if(level.getBlockEntity(pos.relative(state.getValue(FurnaceHeaterBlock.FACING).getOpposite())) instanceof AbstractFurnaceBlockEntity furnace) {
+        if(level.getBlockEntity(pos.relative(getBlockState().getValue(FurnaceHeaterBlock.FACING).getOpposite())) instanceof AbstractFurnaceBlockEntity furnace) {
           addCookTime(furnace);
-          if (tile.getRedstone() >= 32)
+          if (this.getRedstone() >= 32)
             expedite(furnace);
         }
-      } else
+      } else {
+        poweredTicks = 0;
         setActive(level, pos, false);
+      }
   }
+
+  public static <T extends BlockEntity> void tick(Level level, BlockPos pos, BlockState state, T entity) {
+    if(entity instanceof FurnaceHeaterTile tile) tile.tick();
+  }
+
 }
