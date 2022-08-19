@@ -7,6 +7,7 @@
   "block.redderstone.redderstone_block": "Redderstone Block",
   "block.redderstone.furnace_heater": "Redstone Furnace Heater",
   "block.redderstone.alternator": "Redstone Alternator",
+  "block.redderstone.inverter": "Redstone Inverter",
 
   "tooltip.redderstone.hold_for_info": "§7Hold §ethe sneak key§7 for more info.",
 
@@ -27,5 +28,5 @@
   "tooltip.redderstone.inverter_1": "§aInverts§7 an §aalternating signal§7.",
   "tooltip.redderstone.inverter_2": "When provided a signal for a number of ticks, will output",
   "tooltip.redderstone.inverter_3": "that signal for the same number of ticks after it ends.",
-  "tooltip.redderstone.inverter_4": "Max input signal §c60§7, max buffer of §c50 ticks"
+  "tooltip.redderstone.inverter_4": "Max input signal §c60§7, max buffer of §c20 ticks"
 }

@@ -1,10 +1,7 @@
 package com.ssblur.redderstone;
 
 import com.google.common.base.Suppliers;
-import com.ssblur.redderstone.block.AlternatorBlock;
-import com.ssblur.redderstone.block.FurnaceHeaterBlock;
-import com.ssblur.redderstone.block.RedderstoneBlock;
-import com.ssblur.redderstone.block.RedderstoneWireBlock;
+import com.ssblur.redderstone.block.*;
 import com.ssblur.redderstone.events.RedderstoneBlockEvent;
 import com.ssblur.redderstone.events.RedderstonePreTickEvent;
 import com.ssblur.redderstone.events.RedderstoneTickEvent;
@@ -12,6 +9,7 @@ import com.ssblur.redderstone.item.CraftingComponentItem;
 import com.ssblur.redderstone.item.DescriptiveBlockItem;
 import com.ssblur.redderstone.tile.AlternatorTile;
 import com.ssblur.redderstone.tile.FurnaceHeaterTile;
+import com.ssblur.redderstone.tile.InverterTile;
 import com.ssblur.redderstone.tile.RedderstoneBlockTile;
 import dev.architectury.event.events.common.BlockEvent;
 import dev.architectury.event.events.common.TickEvent;
@@ -48,6 +46,7 @@ public class RedderstoneMod {
   public static final RegistrySupplier<Block> REDDERSTONE_BLOCK = BLOCKS.register("redderstone_block", RedderstoneBlock::new);
   public static final RegistrySupplier<Block> FURNACE_HEATER = BLOCKS.register("furnace_heater", FurnaceHeaterBlock::new);
   public static final RegistrySupplier<Block> ALTERNATOR = BLOCKS.register("alternator", AlternatorBlock::new);
+  public static final RegistrySupplier<Block> INVERTER = BLOCKS.register("inverter", InverterBlock::new);
   // The following blocks are not normally directly obtainable.
   public static final RegistrySupplier<Block> REDDERSTONE_WIRE = BLOCKS.register("redderstone_wire", RedderstoneWireBlock::new);
 
@@ -81,6 +80,15 @@ public class RedderstoneMod {
       "tooltip.redderstone.alternator_3",
       "tooltip.redderstone.alternator_4"
     ));
+  public static final RegistrySupplier<Item> INVERTER_ITEM = ITEMS.register("inverter", () ->
+    new DescriptiveBlockItem(
+      INVERTER.get(),
+      new Item.Properties().tab(RedderstoneMod.TAB),
+      "tooltip.redderstone.inverter_1",
+      "tooltip.redderstone.inverter_2",
+      "tooltip.redderstone.inverter_3",
+      "tooltip.redderstone.inverter_4"
+    ));
   // The following items are included for debugging, but are generally unused.
   public static final RegistrySupplier<Item> REDDERSTONE_WIRE_ITEM = ITEMS.register("redderstone_wire", () ->
     new BlockItem(REDDERSTONE_WIRE.get(), new Item.Properties()));
@@ -98,6 +106,10 @@ public class RedderstoneMod {
   public static final RegistrySupplier<BlockEntityType<AlternatorTile>> ALTERNATOR_TYPE = BLOCK_ENTITY_TYPES.register(
     "alternator",
     () -> BlockEntityType.Builder.of(AlternatorTile::new, ALTERNATOR.get()).build(null)
+  );
+  public static final RegistrySupplier<BlockEntityType<InverterTile>> INVERTER_TYPE = BLOCK_ENTITY_TYPES.register(
+    "inverter",
+    () -> BlockEntityType.Builder.of(InverterTile::new, INVERTER.get()).build(null)
   );
 
   public static void init() {
@@ -125,5 +137,6 @@ public class RedderstoneMod {
     RenderTypeRegistry.register(RenderType.cutout(), RedderstoneMod.REDDERSTONE_WIRE.get());
     RenderTypeRegistry.register(RenderType.cutout(), RedderstoneMod.FURNACE_HEATER.get());
     RenderTypeRegistry.register(RenderType.cutout(), RedderstoneMod.ALTERNATOR.get());
+    RenderTypeRegistry.register(RenderType.cutout(), RedderstoneMod.INVERTER.get());
   }
 }
