@@ -15,11 +15,10 @@ import net.minecraft.world.level.block.state.BlockState;
 public class InverterTile extends RedderstoneTile {
   private static final int PERIOD = 20;
   private static final int MAX_INPUT = 60;
-  protected int lastSignal;
+  protected int lastSignal = 0;
+  protected int offset = 0;
   public InverterTile(BlockPos blockPos, BlockState blockState) {
     super(RedderstoneMod.INVERTER_TYPE.get(), blockPos, blockState);
-
-    lastSignal = 0;
   }
 
   public void setActive(boolean active) {
@@ -30,33 +29,34 @@ public class InverterTile extends RedderstoneTile {
 
   public void tick() {
     if(level == null || worldPosition == null) return;
-    var offset = (level.getGameTime() + PERIOD) % (PERIOD * 2);
     var direction = getBlockState().getValue(InverterBlock.HORIZONTAL_FACING);
     var signal = RedderstoneUtility.getRedstoneLevel(level, worldPosition.relative(direction.getOpposite()), direction.getOpposite());
+    System.out.println(offset + " " + direction + " " + signal);
+    System.out.println(lastSignal);
 
     if(offset == 0)
       lastSignal = signal;
-
-    if(offset < PERIOD)
+    else if(offset < PERIOD)
       lastSignal = Math.min(lastSignal, signal);
 
-    if((lastSignal > 0 && offset >= PERIOD) && !getBlockState().getValue(InverterBlock.ACTIVE)) {
-      level.setBlockAndUpdate(worldPosition, getBlockState().setValue(InverterBlock.ACTIVE, true));
-    } else if((lastSignal <= 0 || offset < PERIOD) && getBlockState().getValue(InverterBlock.ACTIVE)){
-      level.setBlockAndUpdate(worldPosition, getBlockState().setValue(InverterBlock.ACTIVE, false));
-      RedderstoneUtility.clearRedstoneLevel(level, worldPosition.relative(direction));
-    }
+    if(lastSignal == 0)
+      offset = 0;
+    else
+      offset = (offset + 1) % (PERIOD * 2);
 
-    if(offset >= PERIOD) {
+    if((lastSignal > 0 && offset >= PERIOD)) {
+      setActive(true);
       var block = level.getBlockState(worldPosition.relative(direction)).getBlock();
       if (block instanceof RedderstoneConductor || block == Blocks.REDSTONE_WIRE)
         RedderstoneUtility.setRedstoneLevel(level, worldPosition.relative(direction), Math.min(lastSignal, MAX_INPUT) - 2);
-    } else if(offset == 0) {
+    } else {
+      setActive(false);
       RedderstoneUtility.clearRedstoneLevel(level, worldPosition.relative(direction));
     }
   }
 
   public static <T extends BlockEntity> void tick(Level level, BlockPos pos, BlockState state, T entity) {
+    if(level != null && level.isClientSide) return;
     if(entity instanceof InverterTile tile) tile.tick();
   }
 
