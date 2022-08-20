@@ -67,6 +67,7 @@ public class FurnaceHeaterTile extends RedderstoneTile {
   }
 
   public void tick() {
+    if(level == null) return;
     var pos = getBlockPos();
     if(!this.isRemoved() && level != null)
       if(this.getRedstone() >= 24) {
@@ -84,6 +85,7 @@ public class FurnaceHeaterTile extends RedderstoneTile {
   }
 
   public static <T extends BlockEntity> void tick(Level level, BlockPos pos, BlockState state, T entity) {
+    if(level != null && level.isClientSide) return;
     if(entity instanceof FurnaceHeaterTile tile) tile.tick();
   }
 

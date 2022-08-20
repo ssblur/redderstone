@@ -26,6 +26,7 @@ public class AlternatorTile extends RedderstoneTile {
   }
 
   public void tick() {
+    if(level == null) return;
     var offset = level.getGameTime() % (PERIOD * 2);
     var direction = getBlockState().getValue(AlternatorBlock.HORIZONTAL_FACING);
     var signal = RedderstoneUtility.getRedstoneLevel(level, worldPosition.relative(direction.getOpposite()), direction.getOpposite());
@@ -52,6 +53,7 @@ public class AlternatorTile extends RedderstoneTile {
   }
 
   public static <T extends BlockEntity> void tick(Level level, BlockPos pos, BlockState state, T entity) {
+    if(level != null && level.isClientSide) return;
     if(entity instanceof AlternatorTile tile) tile.tick();
   }
 
