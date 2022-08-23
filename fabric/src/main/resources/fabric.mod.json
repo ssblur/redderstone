@@ -19,10 +19,7 @@
       "com.ssblur.redderstone.fabric.RedderstoneModFabric"
     ]
   },
-  "mixins": [
-    "redderstone.mixins.json",
-    "redderstone-common.mixins.json"
-  ],
+  "mixins": [],
   "depends": {
     "fabric": "*",
     "minecraft": ">=1.19.2",
