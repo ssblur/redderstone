@@ -25,3 +25,8 @@ section, but the long and short of it is that it will transmit horizontally up t
 ## Why is it orange?
 
 Because Redstone is already pretty red, and I didn't want it to look the same.
+
+## Can I use this in modpacks?
+
+Of course! Credit if you'd like, but I'm just happy to have people playing with
+my mods.

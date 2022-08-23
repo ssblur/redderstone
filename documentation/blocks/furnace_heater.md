@@ -1,5 +1,5 @@
 # Furnace Heater
 
-![Inverter](assets/furnace_heater.png)
+![Furnace Heater](assets/furnace_heater.png)
 
 WIP, thank you for your understanding.

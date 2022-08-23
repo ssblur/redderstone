@@ -1,5 +1,5 @@
 # Alternator
 
-![Inverter](assets/alternator.png)
+![Alternator](assets/alternator.png)
 
 WIP, thank you for your understanding.
