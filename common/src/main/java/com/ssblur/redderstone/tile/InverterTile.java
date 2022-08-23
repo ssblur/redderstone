@@ -31,8 +31,6 @@ public class InverterTile extends RedderstoneTile {
     if(level == null || worldPosition == null) return;
     var direction = getBlockState().getValue(InverterBlock.HORIZONTAL_FACING);
     var signal = RedderstoneUtility.getRedstoneLevel(level, worldPosition.relative(direction.getOpposite()), direction.getOpposite());
-    System.out.println(offset + " " + direction + " " + signal);
-    System.out.println(lastSignal);
 
     if(offset == 0)
       lastSignal = signal;
