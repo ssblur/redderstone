@@ -28,7 +28,7 @@ dependencies {
     modApi "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
     // Remove the next line if you don't want to depend on the API
     modApi "dev.architectury:architectury-fabric:${rootProject.architectury_version}"
-    modImplementation "vazkii.patchouli:Patchouli:1.19.2-76-FABRIC"
+    modImplementation "vazkii.patchouli:Patchouli:${rootProject.patchouli_version}-FABRIC"
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
