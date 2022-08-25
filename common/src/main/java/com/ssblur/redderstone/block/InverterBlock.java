@@ -20,11 +20,12 @@ import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class InverterBlock extends FacingBlock implements EntityBlock {
   public static final BooleanProperty ACTIVE = BooleanProperty.create("active");
-  public static final VoxelShape SHAPE = Shapes.box(0f, 0f, 0f, 1f, 0.5f, 1f);
+  public static final VoxelShape SHAPE = Shapes.box(0f, 0f, 0f, 1f, 0.125f, 1f);
 
   public InverterBlock() {
     super(
@@ -38,8 +39,9 @@ public class InverterBlock extends FacingBlock implements EntityBlock {
     registerDefaultState(defaultBlockState().setValue(ACTIVE, false));
   }
 
+  @SuppressWarnings("deprecation")
   @Override
-  public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
+  public VoxelShape getShape(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos, @NotNull CollisionContext collisionContext) {
     return SHAPE;
   }
 
@@ -49,12 +51,12 @@ public class InverterBlock extends FacingBlock implements EntityBlock {
 
   @Nullable
   @Override
-  public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+  public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
     return new InverterTile(pos, state);
   }
 
   @Override
-  public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state, BlockEntityType<T> type) {
+  public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level world, @NotNull BlockState state, @NotNull BlockEntityType<T> type) {
     return InverterTile::tick;
   }
 
