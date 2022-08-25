@@ -32,23 +32,18 @@ public class RedderstoneUtility {
   }
 
   public static void setRedstoneLevel(Level level, BlockPos pos, int signal) {
-    setRedstoneLevel(level, pos, signal, new HashMap<>());
-  }
-
-  public static void setRedstoneLevel(Level level, BlockPos pos, int signal, HashMap<BlockPos, Integer> traversal) {
     RedderstoneLayer.getMap(level).setSignal(pos, signal);
 
     if(signal <= 0) return;
 
     for(var p: surrounding(pos)) {
-      if(traversal.getOrDefault(p.pos, 0) > signal - 1) continue;
-      traversal.put(p.pos, signal - 1);
+      if(RedderstoneLayer.getMap(level).getMemory(p.pos) > signal) continue;
 
       var state = level.getBlockState(p.pos);
       var block = state.getBlock();
 
       if(block instanceof RedderstoneConductor || block == Blocks.REDSTONE_WIRE)
-        setRedstoneLevel(level, p.pos, signal - 1, traversal);
+        setRedstoneLevel(level, p.pos, signal - 1);
     }
   }
 

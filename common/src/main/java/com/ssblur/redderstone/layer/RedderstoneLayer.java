@@ -3,9 +3,7 @@ package com.ssblur.redderstone.layer;
 import com.ssblur.redderstone.RedderstoneMod;
 import com.ssblur.redderstone.block.RedderstoneWireBlock;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Vec3i;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 
@@ -62,7 +60,7 @@ public class RedderstoneLayer {
 
   public int getMemory(BlockPos pos) {
     synchronized (layerMemory) {
-      return Math.max(layerMemory.getOrDefault(pos, 0), layerSignal.getOrDefault(pos, 0));
+      return layerMemory.getOrDefault(pos, 0);
     }
   }
 
