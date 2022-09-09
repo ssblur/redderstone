@@ -15,6 +15,11 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: '17'
+      - name: Convert documentation
+        run: bash ./gradlew convert
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_USER: 'ssblur'
       - name: Build Forge
         run: bash ./gradlew forge:build
       - name: Build Fabric
