@@ -2,7 +2,7 @@ plugins {
     id "architectury-plugin" version "3.4-SNAPSHOT"
     id "dev.architectury.loom" version "0.12.0-SNAPSHOT" apply false
     id "com.palantir.git-version" version "0.15.0"
-    id "com.ssblur.mtp" version "1.0.0"
+    id "com.ssblur.mtp" version "1.0.1"
 }
 
 architectury {
@@ -11,7 +11,6 @@ architectury {
 
 subprojects {
     apply plugin: "dev.architectury.loom"
-    apply plugin: "com.ssblur.mtp"
 
     loom {
         silentMojangMappingsLicense()
@@ -38,7 +37,6 @@ allprojects {
     apply plugin: "architectury-plugin"
     apply plugin: "maven-publish"
     apply plugin: "com.palantir.git-version"
-    apply plugin: "com.ssblur.mtp"
 
     archivesBaseName = rootProject.archives_base_name
     def matcher = gitVersion() =~ /^v(\d+\.\d+\.\d+).*/
@@ -47,7 +45,6 @@ allprojects {
     group = rootProject.maven_group
 
     repositories {
-        mavenLocal()
         mavenCentral()
         // Add repositories to retrieve artifacts from in here.
         // You should only use this when depending on other mods because
