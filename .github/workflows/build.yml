@@ -17,8 +17,14 @@ jobs:
           java-version: '17'
       - name: Build Forge
         run: bash ./gradlew forge:build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_USER: 'ssblur'
       - name: Build Fabric
         run: bash ./gradlew fabric:build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_USER: 'ssblur'
       - name: Cleanup
         run: |
           rm */build/libs/redderstone-*-dev-shadow.jar
