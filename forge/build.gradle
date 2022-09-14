@@ -1,5 +1,25 @@
 plugins {
     id "com.github.johnrengelman.shadow" version "7.1.2"
+    id "com.ssblur.mtp" version "1.0.1"
+}
+
+mtp {
+    namespace "redderstone"
+    bookId "redstone_guide"
+    input "documentation"
+    output "forge/src/main/generated"
+}
+
+tasks.build {
+    dependsOn "convert"
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDirs "src/main/generated"
+        }
+    }
 }
 
 architectury {

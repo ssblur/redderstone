@@ -2,7 +2,6 @@ plugins {
     id "architectury-plugin" version "3.4-SNAPSHOT"
     id "dev.architectury.loom" version "0.12.0-SNAPSHOT" apply false
     id "com.palantir.git-version" version "0.15.0"
-    id "com.ssblur.mtp" version "1.0.1"
 }
 
 architectury {
@@ -23,13 +22,6 @@ subprojects {
         // The following line declares the yarn mappings you may select this one as well.
         // mappings "net.fabricmc:yarn:1.19.2+build.3:v2"
     }
-}
-
-mtp {
-    namespace "redderstone"
-    bookId "redstone_guide"
-    input "documentation"
-    output "generated/src/main/resources"
 }
 
 allprojects {
